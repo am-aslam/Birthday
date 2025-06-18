@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday My Love</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hearts-bg"></div>
+
+  <div class="container">
+    <h1 class="fade-in">🎉 Happy Birthday My Love 🎉</h1>
+    <p class="typewriter">
+      Every heartbeat of mine says your name.<br>
+      Every moment with you is a fairytale come true.<br>
+      On this special day, I just want to say...<br>
+      I love you more than words can ever express. 💖
+    </p>
+
+    <button class="glow-button" onclick="showPopup()">Click for a Surprise</button>
+  </div>
+
+  <!-- Background romantic music -->
+  <audio id="bgMusic" src="tender-love.mp3" loop preload="auto"></audio>
+
+  <!-- Popup romantic sound -->
+  <audio id="popupSound" src="popup-romantic.mp3" preload="auto"></audio>
+
+  <!-- Popup Message -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <h2>💌 My Birthday Wish For You</h2>
+      <p>
+        May your smile never fade, your heart always shine, and your dreams come true — because you deserve the world, my love. ❤️<br><br>
+        Forever yours,<br><strong>My Fav Poopiee 💋😘🫀🫣</strong>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    const popupSound = document.getElementById('popupSound');
+    let hasStartedBgMusic = false;
+
+    // Start background music after first user interaction (anywhere)
+    function startBackgroundMusic() {
+      if (!hasStartedBgMusic) {
+        bgMusic.play().then(() => {
+          hasStartedBgMusic = true;
+          console.log("✅ Background music started");
+        }).catch(err => {
+          console.warn("⚠️ Background music blocked until interaction", err);
+        });
+      }
+    }
+
+    // Attach listeners for mobile and desktop
+    document.addEventListener("click", startBackgroundMusic, { once: true });
+    document.addEventListener("touchstart", startBackgroundMusic, { once: true });
+
+    function showPopup() {
+      // Stop background music
+      if (!bgMusic.paused) {
+        bgMusic.pause();
+      }
+
+      // Play popup music
+      popupSound.currentTime = 0;
+      popupSound.play();
+
+      // Show popup
+      document.getElementById('popupOverlay').classList.add('show');
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
